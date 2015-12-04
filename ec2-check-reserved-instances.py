@@ -56,6 +56,12 @@ for reserved_instance in ec2_conn.get_all_reserved_instances():
 
 # this dict will have a positive number if there are unused reservations
 # and negative number if an instance is on demand
+print ""
+for reserved_instance in reserved_instances:
+    if reserved_instance in running_instances:
+        print "Reserved/Running:\t(%s/%s)\t%s\t%s" % (reserved_instances[reserved_instance], running_instances[reserved_instance], reserved_instance[0], reserved_instance[1])
+print ""
+
 instance_diff = dict([(x, reserved_instances[x] - running_instances.get(x, 0 )) for x in reserved_instances])
 
 # instance_diff only has the keys that were present in reserved_instances. There's probably a cooler way to add a filtered dict here
