@@ -71,6 +71,15 @@ else:
     for unused_reservation in unused_reservations_vpc:
         print "UNUSED RESERVATION!\t(%s)\t%s\t%s" % (unused_reservations_vpc[unused_reservation], unused_reservation[0], unused_reservation[1])
 
+print ""
+
+unreserved_instances_vpc = dict((key, -value) for key, value in instance_diff_vpc.iteritems() if value < 0)
+if unreserved_instances_vpc == {}:
+    print "Congratulations, you have no unreserved instances"
+else:
+    for unreserved_instance in unreserved_instances_vpc:
+        print "Instance not reserved:\t(%s)\t%s\t%s" % (unreserved_instances_vpc[unreserved_instance], unreserved_instance[0], unreserved_instance[1])
+
 qty_running_instances_vpc = reduce(lambda x, y: x + y, running_instances_vpc.values())
 qty_reserved_instances_vpc = reduce(lambda x, y: x + y, reserved_instances_vpc.values())
 print "\n(%s) running on-demand vpc instances\n(%s) vpc instance reservations\n" % (qty_running_instances_vpc, qty_reserved_instances_vpc)
@@ -97,16 +106,18 @@ else:
     for unused_reservation in unused_reservations_ec2_classic:
         print "UNUSED RESERVATION!\t(%s)\t%s\t%s" % (unused_reservations_ec2_classic[unused_reservation], unused_reservation[0], unused_reservation[1])
 
+print ""
+
+unreserved_instances_ec2_classic = dict((key, -value) for key, value in instance_diff_ec2_classic.iteritems() if value < 0)
+if unreserved_instances_ec2_classic == {}:
+    print "Congratulations, you have no unreserved instances"
+else:
+    for unreserved_instance in unreserved_instances_ec2_classic:
+        print "Instance not reserved:\t(%s)\t%s\t%s" % (unreserved_instances_ec2_classic[unreserved_instance], unreserved_instance[0], unreserved_instance[1])
+
 qty_running_instances_ec2_classic = reduce(lambda x, y: x + y, running_instances_ec2_classic.values())
 qty_reserved_instances_ec2_classic = reduce(lambda x, y: x + y, reserved_instances_ec2_classic.values())
 print "\n(%s) running on-demand ec2-classic instances\n(%s) ec2-classic instance reservations\n" % (qty_running_instances_ec2_classic, qty_reserved_instances_ec2_classic)
 
 print "======================================================="
-
-# unreserved_instances_ec2_classic = dict((key, -value) for key, value in instance_diff_ec2_classic.iteritems() if value < 0)
-# if unreserved_instances_ec2_classic == {}:
-#     print "Congratulations, you have no unreserved instances"
-# else:
-#     for unreserved_instance in unreserved_instances_ec2_classic:
-#         print "Instance not reserved:\t(%s)\t%s\t%s" % (unreserved_instances_ec2_classic[unreserved_instance], unreserved_instance[0], unreserved_instance[1])
 
