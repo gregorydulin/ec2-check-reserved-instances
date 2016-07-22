@@ -80,9 +80,20 @@ else:
     for unreserved_instance in unreserved_instances_vpc:
         print "Instance not reserved:\t(%s)\t%s\t%s" % (unreserved_instances_vpc[unreserved_instance], unreserved_instance[0], unreserved_instance[1])
 
-qty_running_instances_vpc = reduce(lambda x, y: x + y, running_instances_vpc.values())
-qty_reserved_instances_vpc = reduce(lambda x, y: x + y, reserved_instances_vpc.values())
-print "\n(%s) running on-demand vpc instances\n(%s) vpc instance reservations\n" % (qty_running_instances_vpc, qty_reserved_instances_vpc)
+running_instances_vpc_values = running_instances_vpc.values()
+if len(running_instances_vpc_values) != 0:
+    qty_running_instances_vpc = reduce(lambda x, y: x + y, running_instances_vpc_values)
+    print "\n(%s) on-demand vpc instances" % qty_running_instances_vpc
+else:
+    print "\n *  there are no on-demand vpc instances running"
+
+reserved_instances_vpc_values = reserved_instances_vpc.values()
+if len(reserved_instances_vpc_values) != 0:
+    qty_reserved_instances_vpc = reduce(lambda x, y: x + y, reserved_instances_vpc_values)
+    print "(%s) vpc instance reservations" % qty_reserved_instances_vpc
+else:
+    print " *  there are no reserved instances in vpc"
+
 
 print "======================================================="
 
@@ -115,9 +126,19 @@ else:
     for unreserved_instance in unreserved_instances_ec2_classic:
         print "Instance not reserved:\t(%s)\t%s\t%s" % (unreserved_instances_ec2_classic[unreserved_instance], unreserved_instance[0], unreserved_instance[1])
 
-qty_running_instances_ec2_classic = reduce(lambda x, y: x + y, running_instances_ec2_classic.values())
-qty_reserved_instances_ec2_classic = reduce(lambda x, y: x + y, reserved_instances_ec2_classic.values())
-print "\n(%s) running on-demand ec2-classic instances\n(%s) ec2-classic instance reservations\n" % (qty_running_instances_ec2_classic, qty_reserved_instances_ec2_classic)
+running_instances_ec2_classic_values = running_instances_ec2_classic.values()
+if len(running_instances_ec2_classic_values) != 0:
+    qty_running_instances_ec2_classic = reduce(lambda x, y: x + y, running_instances_ec2_classic_values)
+    print "\n(%s) running on-demand ec2-classic instances" % qty_running_instances_ec2_classic
+else:
+    print "\n *  there are no on-demand ec2-classic instances running"
 
-print "======================================================="
+reserved_instances_ec2_classic_values = reserved_instances_ec2_classic.values()
+if len(reserved_instances_ec2_classic_values) != 0:
+    qty_reserved_instances_ec2_classic = reduce(lambda x, y: x + y, reserved_instances_ec2_classic_values)
+    print "(%s) ec2-classic instance reservations" % qty_reserved_instances_ec2_classic
+else:
+    print " *  there are no reserved instances in ec2-classic"
+
+print "\n======================================================="
 
