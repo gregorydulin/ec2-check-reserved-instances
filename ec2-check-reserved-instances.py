@@ -5,21 +5,9 @@ import os
 import boto
 from pprint import pprint
 
-# You can uncomment and set these, or set the env variables AWSAccessKeyId & AWSSecretKey
-# AWS_ACCESS_KEY_ID="aaaaaaaaaaaaaaaaaaaa"
-# AWS_SECRET_ACCESS_KEY="bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+# Boto no longer needs Keys passed to it.  It auto reads them from .aws/credentials like the awscli 
 
-try:
-    AWS_ACCESS_KEY_ID
-except NameError:
-    try:
-        AWS_ACCESS_KEY_ID = os.environ['AWSAccessKeyId']
-        AWS_SECRET_ACCESS_KEY = os.environ['AWSSecretKey']
-    except KeyError:
-        print "Please set env variable"
-        sys.exit(1)
-
-ec2_conn = boto.connect_ec2(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
+ec2_conn = boto.connect_ec2()
 reservations = ec2_conn.get_all_instances()
 
 running_instances_vpc = {}
